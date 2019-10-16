@@ -3,17 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <title>Cookie Editor</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="popup.css">
         <script type="text/javascript" src="popup.js"></script>
     </head>
 
     <body>
-        <form action="" name="myform" method="POST">
-            Name: <input type="text" name="name">
-            Email: <input type="email" name="email">
-            <button>Get Cookies</button>
-        </form>
-        
+        <div class="row">
+            <div class="col-8">
+                <ol id="cookie_list"></ol>
+                <button>Get Cookies</button>
+            </div>
+        </div>
         
     </body>
 </html>

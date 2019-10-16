@@ -12,9 +12,16 @@ function setCookies(){
 document.addEventListener('DOMContentLoaded', function(){
     document.querySelector('button').addEventListener('click', getCookies, false)
     function getCookies(){
-        console.log("hey")
+      
         var cookie_array = document.cookie.split(";");
-        console.log(cookie_array[0]);
+        var ol = document.getElementById("cookie_list");
+        var li = document.createElement("li");
+        
+        cookie_array.forEach(element => {
+            li.setAttribute('id',element.value);
+            li.appendChild(document.createTextNode(element.value));
+            ol.appendChild(li);
+        });
     }
 }, false)
 
