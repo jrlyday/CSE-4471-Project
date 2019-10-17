@@ -1,6 +1,3 @@
-if (!chrome.cookies) {
-  chrome.cookies = chrome.experimental.cookies;
-}
 // A simple Timer class.
 function Timer() {
   this.start_ = new Date();
