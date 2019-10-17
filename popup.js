@@ -12,16 +12,16 @@ function setCookies(){
 document.addEventListener('DOMContentLoaded', function(){
     document.querySelector('button').addEventListener('click', getCookies, false)
     function getCookies(){
-      
+        
         var cookie_array = document.cookie.split(";");
         var ol = document.getElementById("cookie_list");
         var li = document.createElement("li");
-        
-        cookie_array.forEach(element => {
-            li.setAttribute('id',element.value);
-            li.appendChild(document.createTextNode(element.value));
-            ol.appendChild(li);
-        });
+        var i;
+        for(i=0; i < cookie_array.length; i++){
+        	 li.setAttribute('id',i);
+           li.appendChild(document.createTextNode(cookie_array[i]));
+           ol.appendChild(li);
+        }
     }
 }, false)
 
