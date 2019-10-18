@@ -1,15 +1,17 @@
 <html>
+
 <head>
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="manager.css">
-    <script src="manager.js"></script>
+  <link rel="stylesheet" type="text/css"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="manager.css">
+  <script src="manager.js"></script>
 </head>
+
 <body>
   <h2>List of your Cookies</h2>
-  <button id="remove_button">DELETE ALL!</button>
   <div id="filter_div">
     Filter: <input id="filter" type="text">
-    <button>x</button>
+    <button>Clear</button>
   </div>
   <br />
   <div id="summary_div">
@@ -17,10 +19,13 @@
     <span id="delete_all_button"></span>
   </div>
   <br />
-  <table id="cookies">
-    <tr class="header">
-      <th>Name</th>
-      <th>#Cookies</th>
-    </tr>
-  </body>
+  <div class="table_div">
+    <table id="cookies">
+      <tr class="header">
+        <th>Name</th>
+        <th># Cookies</th>
+      </tr>
+  </div>
+</body>
+
 </html>
