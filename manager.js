@@ -231,7 +231,6 @@ document.addEventListener('DOMContentLoaded', function () {
   onload();
   document.querySelector('#filter_div button').addEventListener('click', resetFilter);
   document.body.addEventListener('click', focusFilter);
-  document.querySelector('#remove_button').addEventListener('click', removeAll);
+  //document.querySelector('#remove_button').addEventListener('click', removeAll);
   document.querySelector('#filter_div input').addEventListener('input', reloadCookieTable);
-  document.querySelector('#filter_div button').addEventListener('click', resetFilter);
 });
