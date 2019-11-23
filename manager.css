@@ -1,5 +1,5 @@
 table {
-  border-collapse:collapse;
+  border-collapse: collapse;
 }
 
 td {
@@ -15,17 +15,27 @@ td.cookie_count {
 }
 
 h2 {
-  margin-left: 5px;
+  display: inline-block;
+  align-items: center;
 }
 
-.table_div, #filter_div, #summary_div {
+.table_div,
+#filter_div,
+#summary_div {
   margin-left: 10px;
 }
 
-#filter_count, #total_count {
+#filter_count,
+#total_count {
   color: #49b849;
 }
 
 button {
   margin-left: 10px;
+}
+
+.cookie-image {
+  height: auto;
+  width: 100px;
+  margin-bottom: 10px;
 }
