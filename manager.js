@@ -159,6 +159,7 @@ function reloadCookieTable() {
     var button = document.createElement("button");
     button.onclick = removeAllForFilter;
     button.innerText = "Delete all " + domains.length;
+    button.setAttribute("class", "delete_all_button_css");
     select("#delete_all_button").appendChild(button);
   }
   resetTable();

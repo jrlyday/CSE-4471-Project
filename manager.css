@@ -51,3 +51,7 @@ button {
 p {
   margin-left: 5px;
 }
+
+.delete_all_button_css {
+  font-weight: bold;
+}
