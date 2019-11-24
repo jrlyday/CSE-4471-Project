@@ -32,6 +32,10 @@ h2 {
 
 button {
   margin-left: 10px;
+  border-color: orange;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  height: 35px;
 }
 
 .cookie-image {
@@ -42,4 +46,8 @@ button {
 
 #filter {
   width: 244px;
+}
+
+p {
+  margin-left: 5px;
 }
