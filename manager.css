@@ -55,3 +55,8 @@ p {
 .delete_all_button_css {
   font-weight: bold;
 }
+
+.individcookies {
+  border-color: black;
+  align-items: right;
+}

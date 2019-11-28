@@ -173,6 +173,8 @@ function reloadCookieTable() {
     cell.setAttribute("class", "cookie_count");
     var button2 = document.createElement("button");
     button2.innerText = "Encrypt";
+    var button3 = document.createElement("button");
+    button3.innerText = "Decrypt";
     var button = document.createElement("button");
     button.innerText = "Delete";
     button.onclick = (function(dom) {
@@ -182,6 +184,7 @@ function reloadCookieTable() {
     })(domain);
     var cell = row.insertCell(-1);
     cell.appendChild(button2);
+    cell.appendChild(button3);
     cell.appendChild(button);
     cell.setAttribute("class", "button");
   });
@@ -243,7 +246,6 @@ document.addEventListener("DOMContentLoaded", function() {
     .querySelector("#filter_div button")
     .addEventListener("click", resetFilter);
   document.body.addEventListener("click", focusFilter);
-  //document.querySelector('#remove_button').addEventListener('click', removeAll);
   document
     .querySelector("#filter_div input")
     .addEventListener("input", reloadCookieTable);
