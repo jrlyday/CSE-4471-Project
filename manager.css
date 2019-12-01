@@ -60,3 +60,24 @@ p {
   border-color: black;
   align-items: right;
 }
+
+.cookie_detail_overlay {
+  position: absolute;
+  display: none;
+  width: 200px;
+  top: 220px;
+  left: 600px;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}

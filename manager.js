@@ -87,6 +87,51 @@ function CookieCache() {
   this.getCookies = function(domain) {
     return this.cookies_[domain];
   };
+
+  this.encryptCookies = function(domain) {
+    this.cookies_[domain].forEach(function(cookie) {
+      cookie.value = CryptoJS.AES.encrypt(
+        cookie.value,
+        encryptionKey()
+      ).toString();
+
+      updateCookieValue(cookie);
+    });
+  };
+
+  this.decryptCookies = function(domain) {
+    this.cookies_[domain].forEach(function(cookie) {
+      cookie.value = CryptoJS.AES.decrypt(
+        cookie.value,
+        encryptionKey()
+      ).toString(CryptoJS.enc.Utf8);
+
+      updateCookieValue(cookie);
+    });
+  };
+}
+
+function updateCookieValue(cookie) {
+  var url =
+    "http" + (cookie.secure ? "s" : "") + "://" + cookie.domain + cookie.path;
+  debugger;
+  chrome.cookies.set(
+    {
+      url: url,
+      name: cookie.name,
+      value: cookie.value,
+      domain: cookie.domain,
+      path: cookie.path,
+      secure: cookie.secure,
+      httpOnly: cookie.httpOnly,
+      storeId: cookie.storeId
+    },
+    function(cookie) {
+      console.log(JSON.stringify(cookie));
+      console.log(chrome.extension.lastError);
+      console.log(chrome.runtime.lastError);
+    }
+  );
 }
 
 var cache = new CookieCache();
@@ -148,6 +193,45 @@ function scheduleReloadCookieTable() {
   }
 }
 
+function stripDomain(domain) {
+  domain.replace(".", "");
+}
+
+function showDomainDetails(domain) {
+  var existingDetails = document
+    .getElementsByClassName("cookie_detail_overlay display-block")
+    .item(0);
+  existingDetails && existingDetails.classList.remove("display-block");
+
+  var details = select(`#domain${domain.replace(".", "").replace(".com", "")}`);
+  details.className += " " + "display-block";
+}
+
+function createDetailsOverlayHtml(domain) {
+  var detailsHtml = "";
+  cache.getCookies(domain).forEach(function(cookie) {
+    detailsHtml += `<p>Name: ${cookie.name}</p><p>Value: ${cookie.value}</p>`;
+  });
+
+  var overlayId = `domain${domain.replace(".", "").replace(".com", "")}`;
+
+  return `<div id=${overlayId} class="cookie_detail_overlay">${detailsHtml}</div>`;
+}
+
+function encryptionKey() {
+  return "encryption password";
+}
+
+// function encryptCookie(cookie, key) {
+//   cookie.value = CryptoJS.AES.encrypt(cookie.value, key).toString();
+// }
+
+// function decryptCookie(cookie, key) {
+//   cookie.value = CryptoJS.AES.decrypt(cookie.value, key).toString(
+//     CryptoJS.enc.Utf8
+//   );
+// }
+
 function reloadCookieTable() {
   reload_scheduled = false;
   var filter = select("#filter").value;
@@ -164,20 +248,40 @@ function reloadCookieTable() {
   }
   resetTable();
   var table = select("#cookies");
+  var overlayContainer = select("#cookie_overlay_container");
   domains.forEach(function(domain) {
     var cookies = cache.getCookies(domain);
     var row = table.insertRow(-1);
-    row.insertCell(-1).innerText = domain;
+    var name = row.insertCell(-1);
+    var nameButton = document.createElement("button");
+    nameButton.innerText = domain;
+    nameButton.onclick = (function(dom) {
+      return function() {
+        showDomainDetails(dom);
+      };
+    })(domain);
+    name.appendChild(nameButton);
+
     var cell = row.insertCell(-1);
     cell.innerText = cookies.length;
     cell.setAttribute("class", "cookie_count");
     var button2 = document.createElement("button");
     button2.innerText = "Encrypt";
+    button2.onclick = (function(dom) {
+      return function() {
+        cache.encryptCookies(domain);
+      };
+    })(domain);
     var button3 = document.createElement("button");
     button3.innerText = "Decrypt";
-    var button = document.createElement("button");
-    button.innerText = "Delete";
-    button.onclick = (function(dom) {
+    button3.onclick = (function(dom) {
+      return function() {
+        cache.decryptCookies(domain);
+      };
+    })(domain);
+    var deleteButton = document.createElement("button");
+    deleteButton.innerText = "Delete";
+    deleteButton.onclick = (function(dom) {
       return function() {
         removeCookiesForDomain(dom);
       };
@@ -185,8 +289,14 @@ function reloadCookieTable() {
     var cell = row.insertCell(-1);
     cell.appendChild(button2);
     cell.appendChild(button3);
-    cell.appendChild(button);
+    cell.appendChild(deleteButton);
     cell.setAttribute("class", "button");
+
+    detailsHtml = createDetailsOverlayHtml(domain);
+    var cookieOverlay = document.createElement("div");
+    cookieOverlay.innerHTML = detailsHtml;
+
+    overlayContainer.appendChild(cookieOverlay);
   });
 }
 
