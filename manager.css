@@ -74,14 +74,22 @@ p {
 .cookie_detail_overlay {
   position: absolute;
   display: none;
-  width: 200px;
+  width: 400px;
+  height: 4000px;
   top: 220px;
   left: 600px;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  background: whitesmoke;
+  word-wrap: break-word;
   z-index: 2;
   cursor: pointer;
+}
+
+.cookie_detail_header {
+  font-weight: bold;
+  display: inline-block;
 }
 
 .display-block {
