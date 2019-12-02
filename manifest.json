@@ -1,8 +1,15 @@
 {
-  "name" : "Cookie Editor",
-  "version" : "1.0",
-  "description" : "fulfills your cookie editing needs!",
-  "permissions": [ "cookies", "tabs", "http://*/*", "https://*/*" ],
+  "name": "Cookie Editor",
+  "version": "1.0",
+  "description": "Fulfills your cookie editing needs!",
+  "permissions": [
+    "cookies",
+    "tabs",
+    "chrome-extension://llkoibjkpjkmiopbdpingkhbpkbppjki/manager.html",
+    "http://*/*",
+    "https://*/*",
+    "http://.33across.com/"
+  ],
   "icons": { "16": "cookie.png", "48": "cookie.png", "128": "cookie.png" },
   "browser_action": {
     "default_icon": "cookie.png"

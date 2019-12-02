@@ -1,5 +1,5 @@
 table {
-  border-collapse:collapse;
+  border-collapse: collapse;
 }
 
 td {
@@ -15,17 +15,87 @@ td.cookie_count {
 }
 
 h2 {
-  margin-left: 5px;
+  display: inline-block;
+  align-items: center;
 }
 
-.table_div, #filter_div, #summary_div {
+.table_div,
+#filter_div,
+#summary_div {
   margin-left: 10px;
 }
 
-#filter_count, #total_count {
+#filter_count,
+#total_count {
   color: #49b849;
 }
 
-button {
+.other-buttons {
   margin-left: 10px;
+  border-color: orange;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  height: 35px;
+}
+
+.cookie-image {
+  height: auto;
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+#filter {
+  width: 244px;
+}
+
+p {
+  margin-left: 5px;
+}
+
+.delete_all_button_css {
+  margin-left: 10px;
+  border-color: orange;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  height: 35px;
+  font-weight: bold;
+}
+
+.domain-buttons {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.individcookies {
+  border-color: black;
+  align-items: right;
+}
+
+.cookie_detail_overlay {
+  position: absolute;
+  display: none;
+  width: 400px;
+  height: 4000px;
+  top: 220px;
+  left: 600px;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  background: whitesmoke;
+  word-wrap: break-word;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.cookie_detail_header {
+  font-weight: bold;
+  display: inline-block;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
 }

@@ -5,13 +5,14 @@
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="manager.css">
   <script src="manager.js"></script>
+  <script src="aes.js"></script>
 </head>
 
 <body>
-  <h2>List of your Cookies</h2>
+  <img src="webcookie.png" alt="cookie" class="cookie-image"><h2>List of your Cookies</h2></img>
   <div id="filter_div">
     Filter: <input id="filter" type="text">
-    <button>Clear</button>
+    <button class="other-buttons">Clear</button>
   </div>
   <br />
   <div id="summary_div">
@@ -26,6 +27,7 @@
         <th>Number of Cookies</th>
       </tr>
   </div>
+  <div id="cookie_overlay_container"></div>
 </body>
 
 </html>
