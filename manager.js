@@ -193,18 +193,36 @@ function scheduleReloadCookieTable() {
   }
 }
 
-function stripDomain(domain) {
-  domain.replace(".", "");
-}
-
 function showDomainDetails(domain) {
   var existingDetails = document
     .getElementsByClassName("cookie_detail_overlay display-block")
     .item(0);
   existingDetails && existingDetails.classList.remove("display-block");
 
-  var details = select(`#domain${domain.replace(".", "").replace(".com", "")}`);
+  var details = select(`#domain${replaceEndAndDotDomain(domain)}`);
   details.className += " " + "display-block";
+}
+
+function replaceEndAndDotDomain(domain) {
+  var ending = "";
+  var currentPos = domain.length - 1;
+  var currentLetter = domain.charAt(currentPos);
+  while (currentLetter != ".") {
+    currentPos = currentPos - 1;
+    ending = currentLetter + ending;
+    currentLetter = domain.charAt(currentPos);
+  }
+  ending = "." + ending;
+  domain = domain.replace(ending, "");
+  currentPos = 0;
+  while (currentPos < domain.length) {
+    console.log(domain.charAt(currentPos));
+    if (domain.charAt(currentPos) == ".") {
+      domain = domain.replace(domain.charAt(currentPos), "");
+    }
+    currentPos++;
+  }
+  return domain;
 }
 
 function createDetailsOverlayHtml(domain) {
@@ -213,7 +231,7 @@ function createDetailsOverlayHtml(domain) {
     detailsHtml += `<p>Name: ${cookie.name}</p><p>Value: ${cookie.value}</p>`;
   });
 
-  var overlayId = `domain${domain.replace(".", "").replace(".com", "")}`;
+  var overlayId = `domain${replaceEndAndDotDomain(domain)}`;
 
   return `<div id=${overlayId} class="cookie_detail_overlay">${detailsHtml}</div>`;
 }
@@ -221,16 +239,6 @@ function createDetailsOverlayHtml(domain) {
 function encryptionKey() {
   return "encryption password";
 }
-
-// function encryptCookie(cookie, key) {
-//   cookie.value = CryptoJS.AES.encrypt(cookie.value, key).toString();
-// }
-
-// function decryptCookie(cookie, key) {
-//   cookie.value = CryptoJS.AES.decrypt(cookie.value, key).toString(
-//     CryptoJS.enc.Utf8
-//   );
-// }
 
 function reloadCookieTable() {
   reload_scheduled = false;
@@ -291,11 +299,9 @@ function reloadCookieTable() {
     cell.appendChild(button3);
     cell.appendChild(deleteButton);
     cell.setAttribute("class", "button");
-
     detailsHtml = createDetailsOverlayHtml(domain);
     var cookieOverlay = document.createElement("div");
     cookieOverlay.innerHTML = detailsHtml;
-
     overlayContainer.appendChild(cookieOverlay);
   });
 }

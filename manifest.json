@@ -5,6 +5,7 @@
   "permissions": [
     "cookies",
     "tabs",
+    "chrome-extension://llkoibjkpjkmiopbdpingkhbpkbppjki/manager.html",
     "http://*/*",
     "https://*/*",
     "http://.33across.com/"
