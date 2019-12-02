@@ -263,40 +263,43 @@ function reloadCookieTable() {
     var name = row.insertCell(-1);
     var nameButton = document.createElement("button");
     nameButton.innerText = domain;
+    nameButton.setAttribute("class", "domain-buttons");
     nameButton.onclick = (function(dom) {
       return function() {
         showDomainDetails(dom);
       };
     })(domain);
     name.appendChild(nameButton);
-
     var cell = row.insertCell(-1);
     cell.innerText = cookies.length;
     cell.setAttribute("class", "cookie_count");
-    var button2 = document.createElement("button");
-    button2.innerText = "Encrypt";
-    button2.onclick = (function(dom) {
+    var encryptButton = document.createElement("button");
+    encryptButton.innerText = "Encrypt";
+    encryptButton.setAttribute("class", "other-buttons");
+    encryptButton.onclick = (function(dom) {
       return function() {
         cache.encryptCookies(domain);
       };
     })(domain);
-    var button3 = document.createElement("button");
-    button3.innerText = "Decrypt";
-    button3.onclick = (function(dom) {
+    var decryptButton = document.createElement("button");
+    decryptButton.innerText = "Decrypt";
+    decryptButton.setAttribute("class", "other-buttons");
+    decryptButton.onclick = (function(dom) {
       return function() {
         cache.decryptCookies(domain);
       };
     })(domain);
     var deleteButton = document.createElement("button");
     deleteButton.innerText = "Delete";
+    deleteButton.setAttribute("class", "other-buttons");
     deleteButton.onclick = (function(dom) {
       return function() {
         removeCookiesForDomain(dom);
       };
     })(domain);
     var cell = row.insertCell(-1);
-    cell.appendChild(button2);
-    cell.appendChild(button3);
+    cell.appendChild(encryptButton);
+    cell.appendChild(decryptButton);
     cell.appendChild(deleteButton);
     cell.setAttribute("class", "button");
     detailsHtml = createDetailsOverlayHtml(domain);
