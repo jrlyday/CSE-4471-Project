@@ -228,7 +228,7 @@ function replaceEndAndDotDomain(domain) {
 function createDetailsOverlayHtml(domain) {
   var detailsHtml = "";
   cache.getCookies(domain).forEach(function(cookie) {
-    detailsHtml += `<p>Name: ${cookie.name}</p><p>Value: ${cookie.value}</p>`;
+    detailsHtml += `<p>Name: ${cookie.name}</p><p>Value: ${cookie.value}</p><p>Experation: ${cookie.expirationDate}</p>`;
   });
 
   var overlayId = `domain${replaceEndAndDotDomain(domain)}`;
