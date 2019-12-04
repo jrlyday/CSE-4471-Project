@@ -4,8 +4,8 @@
   "description": "Fulfills your cookie editing needs!",
   "permissions": [
     "cookies",
+    "<all_urls>",
     "tabs",
-    "chrome-extension://llkoibjkpjkmiopbdpingkhbpkbppjki/manager.html",
     "http://*/*",
     "https://*/*",
     "http://.33across.com/"

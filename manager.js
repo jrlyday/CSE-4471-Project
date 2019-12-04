@@ -85,6 +85,7 @@ function CookieCache() {
     return this.cookies_[domain];
   };
 
+  // Encrypts the cookie content value param
   this.encryptCookies = function(domain) {
     this.cookies_[domain].forEach(function(cookie) {
       cookie.value = CryptoJS.AES.encrypt(
@@ -92,10 +93,13 @@ function CookieCache() {
         encryptionKey()
       ).toString();
 
+      //Response.Cookies.Add(cookie);
+      //reloadCookieTable();
       updateCookieValue(cookie);
     });
   };
 
+  // Once encrypted value, can decrypt the content param to original value
   this.decryptCookies = function(domain) {
     this.cookies_[domain].forEach(function(cookie) {
       cookie.value = CryptoJS.AES.decrypt(
@@ -109,26 +113,23 @@ function CookieCache() {
 }
 
 function updateCookieValue(cookie) {
-  var url =
-    "http" + (cookie.secure ? "s" : "") + "://" + cookie.domain + cookie.path;
-  debugger;
-  chrome.cookies.set(
-    {
-      url: url,
-      name: cookie.name,
-      value: cookie.value,
-      domain: cookie.domain,
-      path: cookie.path,
-      secure: cookie.secure,
-      httpOnly: cookie.httpOnly,
-      storeId: cookie.storeId
-    },
-    function(cookie) {
-      console.log(JSON.stringify(cookie));
-      console.log(chrome.extension.lastError);
-      console.log(chrome.runtime.lastError);
+ // if(cookie.secure){
+    var newCookie = {};
+    newCookie.url = "http" + (cookie.secure ? "s" : "") + "://" + cookie.domain + cookie.path;
+    newCookie.name = cookie.name;
+    newCookie.value = cookie.value
+    if (!cookie.hostOnly){
+      newCookie.domain = cookie.domain;
+      newCookie.path = cookie.path;
+      newCookie.secure = cookie.secure;
+      newCookie.httpOnly = cookie.httpOnly;
+    } 
+    if (!cookie.session){
+      newCookie.expirationDate = cookie.expirationDate;
+      newCookie.storeId = cookie.storeId;
     }
-  );
+    chrome.cookies.set(newCookie);
+  //}
 }
 
 var cache = new CookieCache();
@@ -140,6 +141,7 @@ function removeAllForFilter() {
   });
 }
 
+//Deletes all cookies that chrome has access too
 function removeAll() {
   var all_cookies = [];
   cache.getDomains().forEach(function(domain) {
@@ -162,6 +164,7 @@ function removeAll() {
   });
 }
 
+// removes cookies for specific domain
 function removeCookie(cookie) {
   var url =
     "http" + (cookie.secure ? "s" : "") + "://" + cookie.domain + cookie.path;
